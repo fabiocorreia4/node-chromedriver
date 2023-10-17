@@ -1,16 +1,16 @@
 'use strict';
 // @ts-check
 
-const fs = require('node:fs');
+const fs = require('fs');
 const helper = require('./lib/chromedriver');
 const axios = require('axios');
-const path = require('node:path');
-const child_process = require('node:child_process');
-const os = require('node:os');
-const url = require('node:url');
-const https = require('node:https');
-const { promisify } = require('node:util');
-const { finished } = require('node:stream');
+const path = require('path');
+const child_process = require('child_process');
+const os = require('os');
+const url = require('url');
+const https = require('https');
+const { promisify } = require('util');
+const { finished } = require('stream');
 const extractZip = require('extract-zip');
 const { getChromeVersion } = require('@testim/chrome-version');
 const HttpsProxyAgent = require('https-proxy-agent');
