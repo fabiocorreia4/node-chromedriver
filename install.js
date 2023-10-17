@@ -50,7 +50,7 @@ if (skipDownload) {
     //   }
     // }
 
-    chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl);
+    chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt("120.0.6074.0"));
 
     let tmpPath = findSuitableTempDirectory(chromedriverVersion);
     const extractDirectory = tmpPath;
