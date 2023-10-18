@@ -31,26 +31,24 @@ if (skipDownload) {
   let chromedriverVersion = process.env.npm_config_chromedriver_version || process.env.CHROMEDRIVER_VERSION || helper.version;
   const detectChromedriverVersion = (process.env.npm_config_detect_chromedriver_version || process.env.DETECT_CHROMEDRIVER_VERSION) === 'true';
   try {
-    // if (detectChromedriverVersion) {
-    //   const includeChromium = (process.env.npm_config_include_chromium || process.env.INCLUDE_CHROMIUM) === 'true';
-    //   // Refer http://chromedriver.chromium.org/downloads/version-selection
-    //   const chromeVersion = await getChromeVersion(includeChromium);
-    //   console.log("Your Chrome version is " + chromeVersion);
-    //   const versionMatch = /^(.*?)\.\d+$/.exec(chromeVersion);
-    //   if (versionMatch) {
-    //     chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(versionMatch[1]));
-    //     console.log("Compatible ChromeDriver version is " + chromedriverVersion);
-    //   }
-    // } else if (chromedriverVersion === 'LATEST') {
-    //   chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl);
-    // } else {
-    //   const latestReleaseForVersionMatch = chromedriverVersion.match(/LATEST_(\d+)/);
-    //   if (latestReleaseForVersionMatch) {
-    //     chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(latestReleaseForVersionMatch[1]));
-    //   }
-    // }
-
-    chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt("120.0.6074.0"));
+    if (detectChromedriverVersion) {
+      const includeChromium = (process.env.npm_config_include_chromium || process.env.INCLUDE_CHROMIUM) === 'true';
+      // Refer http://chromedriver.chromium.org/downloads/version-selection
+      const chromeVersion = await getChromeVersion(includeChromium);
+      console.log("Your Chrome version is " + chromeVersion);
+      const versionMatch = /^(.*?)\.\d+$/.exec(chromeVersion);
+      if (versionMatch) {
+        chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(versionMatch[1]));
+        console.log("Compatible ChromeDriver version is " + chromedriverVersion);
+      }
+    } else if (chromedriverVersion === 'LATEST') {
+      chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl);
+    } else {
+      const latestReleaseForVersionMatch = chromedriverVersion.match(/LATEST_(\d+)/);
+      if (latestReleaseForVersionMatch) {
+        chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(latestReleaseForVersionMatch[1]));
+      }
+    }
 
     let tmpPath = findSuitableTempDirectory(chromedriverVersion);
     const extractDirectory = tmpPath;
